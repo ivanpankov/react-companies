@@ -29,8 +29,21 @@ app.get('/api/companies', function(req, res) {
   res.json(data.getCompanies());
 });
 
+app.get('/api/companies-tree', function(req, res) {
+  res.json(data.getCompaniesTree());
+});
+
+app.get('/api/employees', function(req, res) {
+  res.json(data.getEmployees());
+});
+
 app.all('*', function(req, res) {
   res.status(404).send();
+});
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send();
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

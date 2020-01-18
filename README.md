@@ -61,3 +61,5 @@ npm run server
 ```
 
 `npm run server` provides API data. Same server is used for production. In case of production be sure to build application first to create `/bild` folder with static files.
+
+App is tested with `NodeJS v12.12.0`

@@ -1,23 +1,17 @@
-import React, { useEffect } from 'react';
-import { getCompanies } from '../api/companies';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import TreeView from '../TreeView';
+import Details from '../Details';
+import './styles.scss';
 
 function App() {
-  useEffect(() => {
-    getCompanies().then(data => {
-      console.log(data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }, []);
-
   return (
-    <div>
-      Application
-      <button type="button" className="btn btn-primary">
-        Primary
-      </button>
-    </div>
+    <Router>
+      <div id="app">
+        <TreeView />
+        <Details />
+      </div>
+    </Router>
   );
 }
 

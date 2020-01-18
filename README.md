@@ -46,3 +46,18 @@ Download the attached .zip file with the JSON files and start your journey. Don'
 
 Good luck and happy hacking!
 
+## Dev notes
+
+### Start development server
+
+```
+npm start
+```
+
+### Start Production / Data server
+
+```
+npm run server
+```
+
+`npm run server` provides API data. Same server is used for production. In case of production be sure to build application first to create `/bild` folder with static files.

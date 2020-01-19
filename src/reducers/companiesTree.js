@@ -1,18 +1,52 @@
 import PropTypes from 'prop-types';
 
+export const menuEmplyeePropTypes = {
+  id: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string
+};
+
+export const menuEmplyeeDefaultProps = {
+  id: '',
+  firstName: '',
+  lastName: ''
+};
+
+export const menuAreaPropTypes = {
+  name: PropTypes.string,
+  employees: PropTypes.arrayOf(PropTypes.shape(menuEmplyeePropTypes))
+};
+
+export const menuAreaDefaultProps = {
+  name: '',
+  employees: ''
+};
+
+export const menuCompanyPropTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  jobAreas: PropTypes.arrayOf(PropTypes.shape(menuAreaPropTypes))
+};
+
+export const menuCompanyDefaultProps = {
+  id: '',
+  name: '',
+  jobAreas: []
+};
+
 export const companiesTreePropTypes = {
   loading: PropTypes.bool,
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(PropTypes.shape(menuCompanyPropTypes)),
   error: PropTypes.object
 };
 
-export const defaultCompaniesTree = {
+export const companiesTreeDefaultProps = {
   loading: false,
   data: [],
   error: null
 };
 
-export default function(state = defaultCompaniesTree, action = {}) {
+export default function(state = companiesTreeDefaultProps, action = {}) {
   const { type, ...rest } = action;
 
   switch (type) {

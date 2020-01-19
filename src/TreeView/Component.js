@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import {
-  defaultCompaniesTree,
+  companiesTreeDefaultProps,
   companiesTreePropTypes
 } from '../reducers/companiesTree';
+import Company from './Company';
 import './styles.scss';
 
 const TreeView = ({ companiesTree, fetchCompaniesTree }) => {
   useEffect(() => {
     fetchCompaniesTree();
   }, []);
+
+  const { data } = companiesTree;
 
   console.log(companiesTree);
 
@@ -18,15 +20,20 @@ const TreeView = ({ companiesTree, fetchCompaniesTree }) => {
       <h6 className="pt-3 pl-3">Companies </h6>
       <hr />
       <ul className="mb-1 pl-3 pb-2">
-        <li>
-          <div className="arrow-right"></div> asdfasfd
-        </li>
+        {data.map(company => (
+          <Company
+            id={company.id}
+            key={company.id}
+            name={company.name}
+            jobAreas={company.jobAreas}
+          />
+        ))}
       </ul>
     </div>
   );
 };
 
 TreeView.propTypes = companiesTreePropTypes;
-TreeView.defaultProps = defaultCompaniesTree;
+TreeView.defaultProps = companiesTreeDefaultProps;
 
 export default TreeView;

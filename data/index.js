@@ -1,18 +1,23 @@
 const companies = require('./companies.json');
 const companyAddresses = require('./company-addresses.json');
 const employees = require('./employees.json');
-const projects = require('./projects.json');
+const companyProjects = require('./projects.json');
 
 const separateEmployeesByJobArea = (employees = []) => {
   const jobAreas = {};
 
   employees.forEach(employee => {
     const area = employee.jobArea;
+    const employeeData = {
+      id: employee.id,
+      firstName: employee.firstName,
+      lastName: employee.lastName
+    };
 
     if (Array.isArray(jobAreas[area])) {
-      jobAreas[area].push(employee);
+      jobAreas[area].push(employeeData);
     } else {
-      jobAreas[area] = [employee];
+      jobAreas[area] = [employeeData];
     }
   });
 
@@ -24,11 +29,17 @@ const separateEmployeesByCompanyId = (employees = []) => {
 
   employees.forEach(employee => {
     const id = employee.companyId;
+    const employeeData = {
+      id: employee.id,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      jobArea: employee.jobArea
+    };
 
     if (Array.isArray(companyIds[id])) {
-      companyIds[id].push(employee);
+      companyIds[id].push(employeeData);
     } else {
-      companyIds[id] = [employee];
+      companyIds[id] = [employeeData];
     }
   });
 
@@ -49,8 +60,30 @@ const getCompaniesTree = () => {
     const companyEmployeesByJobArea = separateEmployeesByJobArea(
       companyEmployees
     );
-    return { ...company, jobAreas: jobAreasToArray(companyEmployeesByJobArea) };
+    return {
+      id: company.id,
+      name: company.name,
+      jobAreas: jobAreasToArray(companyEmployeesByJobArea)
+    };
   });
+};
+
+const getCompanyDetails = companyId => {
+  const company = companies.find(company => company.id === companyId);
+  const address = companyAddresses.find(
+    address => address.companyId === companyId
+  );
+  const projects = companyProjects.filter(
+    project => project.companyId === companyId
+  );
+
+  console.log(companyId)
+
+  return {
+    company,
+    address,
+    projects
+  };
 };
 
 const getCompanies = () => {
@@ -64,5 +97,6 @@ const getEmployees = () => {
 module.exports = {
   getCompanies,
   getEmployees,
-  getCompaniesTree
+  getCompaniesTree,
+  getCompanyDetails
 };

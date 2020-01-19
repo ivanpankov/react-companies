@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import JobArea from '../JobArea';
 import {
   companiesTreePropTypes,
@@ -7,7 +8,7 @@ import {
 
 const Company = ({ name, jobAreas, id }) => {
   const [companyOpen, setCompanyOpen] = useState(false);
-  const isAreaEmpty = jobAreas.length == 0;
+  const isAreaEmpty = jobAreas.length === 0;
 
   const handleArrowClick = () => {
     if (!isAreaEmpty) {
@@ -18,11 +19,15 @@ const Company = ({ name, jobAreas, id }) => {
   return (
     <li>
       <div
-        className={`arrow-right${isAreaEmpty ? ' empty' : ''}${companyOpen ? ' open' : ''}`}
+        className={`arrow-right${isAreaEmpty ? ' empty' : ''}${
+          companyOpen ? ' open' : ''
+        }`}
         onClick={handleArrowClick}
       ></div>
 
-      <div className="menu-item-name">{name}</div>
+      <Link to={`/company-details/${id}`}>
+        <div className="menu-item-name">{name}</div>
+      </Link>
       <ul className="mb-1 pl-3">
         {companyOpen
           ? jobAreas.map(area => (

@@ -13,6 +13,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(staticAssets));
 
+app.use((req, res, next) => {
+  setTimeout(() => {
+    return next();
+  }, 1000)
+})
+
 app.get('/', (req, res) => {
   const indexFilePath = path.join(__dirname, staticAssets, 'index.html');
 
@@ -31,6 +37,10 @@ app.get('/api/companies', function(req, res) {
 
 app.get('/api/companies-tree', function(req, res) {
   res.json(data.getCompaniesTree());
+});
+
+app.get('/api/company-details', function(req, res) {
+  res.json(data.getCompanyDetails(req.query.companyId));
 });
 
 app.get('/api/employees', function(req, res) {

@@ -1,4 +1,14 @@
 .details-head {
-    height: 51px;
-    background-color: lightgray;
+  height: 51px;
+  background-color: lightgray;
+}
+
+.company-details {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.company-details-content {
+  overflow-y: auto;
 }

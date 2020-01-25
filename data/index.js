@@ -3,6 +3,16 @@ const companyAddresses = require('./company-addresses.json');
 const employees = require('./employees.json');
 const companyProjects = require('./projects.json');
 
+const employeesToObject = employees => {
+  const result = {};
+
+  employees.forEach(employee => {
+    result[employee.id] = employee;
+  });
+
+  return result;
+};
+
 const separateEmployeesByJobArea = (employees = []) => {
   const jobAreas = {};
 
@@ -68,16 +78,24 @@ const getCompaniesTree = () => {
   });
 };
 
+const getEmployeesById = employeesId => {
+  const employeesObj = employeesToObject(employees);
+  return employeesId.map(id => employeesObj[id]);
+};
+
 const getCompanyDetails = companyId => {
   const company = companies.find(company => company.id === companyId);
   const address = companyAddresses.find(
     address => address.companyId === companyId
   );
-  const projects = companyProjects.filter(
-    project => project.companyId === companyId
-  );
+  const projects = companyProjects
+    .filter(project => project.companyId === companyId)
+    .map(project => {
+      const { employeesId, ...rest } = project;
+      const employees = getEmployeesById(employeesId);
 
-  console.log(companyId)
+      return { ...rest, employees };
+    });
 
   return {
     company,

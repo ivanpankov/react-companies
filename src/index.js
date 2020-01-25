@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './reducers';
+import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-scss';
 import './index.scss';
 import App from './App';

@@ -13,11 +13,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(staticAssets));
 
-app.use((req, res, next) => {
-  setTimeout(() => {
-    return next();
-  }, 1000)
-})
+// app.use((req, res, next) => {
+//   setTimeout(() => {
+//     return next();
+//   }, 1000)
+// })
 
 app.get('/', (req, res) => {
   const indexFilePath = path.join(__dirname, staticAssets, 'index.html');

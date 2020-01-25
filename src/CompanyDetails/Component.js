@@ -6,28 +6,42 @@ import {
   companyDetailsDefaultProps
 } from '../reducers/companyDetails';
 import Address from '../Address';
+import Projects from '../Projects';
 import Spinner from '../Spinner';
 import './styles.scss';
 
 const CompanyDetails = ({ fetchCompanyDetails, companyDetails }) => {
   const { companyId } = useParams();
   const { data, loading } = companyDetails;
-  const { company, address } = data;
+  const { company, address, projects } = data;
   const { city, country, street, state } = address;
 
-  console.log(address);
+  console.log(companyDetails);
+
   useEffect(() => {
     fetchCompanyDetails(companyId);
   }, [companyId]);
 
   return (
-    <div>
-      <h6 className="pt-3 pl-3 details-head">{company.name}</h6>
-      {loading ? (
-        <Spinner size="5rem"/>
-      ) : (
-        <Address city={city} country={country} street={street} state={state} />
-      )}
+    <div className="company-details">
+      <div className=" details-head">
+        <h6 className="p-3">{company.name}</h6>
+      </div>
+      <div className="company-details-content">
+        {loading ? (
+          <Spinner size="5rem" />
+        ) : (
+          <>
+            <Address
+              city={city}
+              country={country}
+              street={street}
+              state={state}
+            />
+            {projects.length ? <Projects projects={projects} /> : null}
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,37 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './styles.scss'
+import {
+  companyAddressDefaultProps,
+  companyAddressPropTypes
+} from '../reducers/companyDetails';
+import './styles.scss';
 
 const Address = ({ city, country, street, state }) => {
   return (
     <div className="address">
-      <h2>Company address</h2>
+      <h2>Address</h2>
       <dl className="dl-horizontal">
-        <dt>City </dt>
+        <dt>City: </dt>
         <dd>{city}</dd>
-        <dt>Country </dt>
+        <dt>Country: </dt>
         <dd>{country}</dd>
-        <dt>Street</dt>
+        <dt>Street:</dt>
         <dd>{street}</dd>
-        <dt>State</dt>
+        <dt>State:</dt>
         <dd>{state}</dd>
       </dl>
     </div>
   );
 };
 
-Address.propTypes = {
-  city: PropTypes.string,
-  country: PropTypes.string,
-  street: PropTypes.string,
-  state: PropTypes.string
-};
+Address.propTypes = companyAddressPropTypes;
 
-Address.defaultProps = {
-  city: '',
-  country: '',
-  street: '',
-  state: ''
-};
+Address.defaultProps = companyAddressDefaultProps;
 
 export default Address;

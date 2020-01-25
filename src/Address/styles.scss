@@ -1,7 +1,18 @@
 .address {
-    padding: 20px;
+  padding: 20px;
 
-    > dl {
-        padding-top: 10px;
-    } 
+  > dl {
+    padding-top: 10px;
+    width: 500px;
+
+    dd {
+      display: inline-block;
+      width: 400px;
+    }
+
+    dt {
+      display: inline-block;
+      width: 100px;
+    }
+  }
 }

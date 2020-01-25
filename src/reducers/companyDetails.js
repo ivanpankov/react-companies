@@ -1,5 +1,27 @@
 import PropTypes from 'prop-types';
 
+export const menuEmplyeePropTypes = {
+  id: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  dateOfBirth: PropTypes.string,
+  companyId: PropTypes.string,
+  jobTitle: PropTypes.string,
+  jobArea: PropTypes.string,
+  jobType: PropTypes.string
+};
+
+export const menuEmplyeeDefaultProps = {
+  id: '',
+  firstName: '',
+  lastName: '',
+  dateOfBirth: '',
+  companyId: '',
+  jobTitle: '',
+  jobArea: '',
+  jobType: ''
+};
+
 export const companyPropTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
@@ -14,19 +36,19 @@ export const companyDefaultProps = {
   slogan: ''
 };
 
-export const companyProjectsPropTypes = {
+export const companyProjectPropTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   department: PropTypes.string,
-  employeesId: PropTypes.arrayOf(PropTypes.string),
+  employees: PropTypes.arrayOf(PropTypes.shape(menuEmplyeePropTypes)),
   companyId: PropTypes.string
 };
 
-export const companyProjectsDefaultProps = {
+export const companyProjectDefaultProps = {
   id: '',
   name: '',
   department: '',
-  employeesId: [],
+  employees: [],
   companyId: ''
 };
 
@@ -53,7 +75,7 @@ export const companyDetailsPropTypes = {
   data: PropTypes.shape({
     company: PropTypes.shape(companyPropTypes),
     address: PropTypes.shape(companyAddressPropTypes),
-    projects: PropTypes.shape(companyProjectsPropTypes)
+    projects: PropTypes.arrayOf(PropTypes.shape(companyProjectPropTypes))
   }),
   error: PropTypes.object
 };
@@ -63,7 +85,7 @@ export const companyDetailsDefaultProps = {
   data: {
     company: companyDefaultProps,
     address: companyAddressDefaultProps,
-    projects: companyProjectsDefaultProps
+    projects: []
   },
   error: null
 };

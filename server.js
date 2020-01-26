@@ -16,8 +16,8 @@ app.use(express.static(staticAssets));
 app.use((req, res, next) => {
   setTimeout(() => {
     return next();
-  }, 500)
-})
+  }, 500);
+});
 
 app.get('/', (req, res) => {
   const indexFilePath = path.join(__dirname, staticAssets, 'index.html');
@@ -29,10 +29,6 @@ app.get('/', (req, res) => {
       res.send('You might need to build project first. See README.md!');
     }
   });
-});
-
-app.get('/api/companies', function(req, res) {
-  res.json(data.getCompanies());
 });
 
 app.get('/api/companies-tree', function(req, res) {
@@ -48,8 +44,12 @@ app.get('/api/employees', function(req, res) {
 });
 
 app.delete('/api/project/:id', function(req, res) {
-  data.deleteProject(req.params.id);
+  data.removeProject(req.params.id);
   res.json({ message: 'Project has been deleted.' });
+});
+
+app.put('/api/project/:id', function(req, res) {
+  res.json(data.editProject(req.params.id, req.body));
 });
 
 app.all('*', function(req, res) {

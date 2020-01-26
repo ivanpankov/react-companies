@@ -1,103 +1,68 @@
-import PropTypes from 'prop-types';
+import { CompanyDetailsDefaultProps, ProjectDefaultProps } from '../models';
 
-export const menuEmplyeePropTypes = {
-  id: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  dateOfBirth: PropTypes.string,
-  companyId: PropTypes.string,
-  jobTitle: PropTypes.string,
-  jobArea: PropTypes.string,
-  jobType: PropTypes.string
-};
+function project(state = ProjectDefaultProps, action = {}) {
+  const { type } = action;
 
-export const menuEmplyeeDefaultProps = {
-  id: '',
-  firstName: '',
-  lastName: '',
-  dateOfBirth: '',
-  companyId: '',
-  jobTitle: '',
-  jobArea: '',
-  jobType: ''
-};
+  switch (type) {
+    case 'EDIT_PROJECT':
+      return {...state, ...action.data};
 
-export const companyPropTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  business: PropTypes.string,
-  slogan: PropTypes.string
-};
+    default:
+      return state;
+  }
+}
 
-export const companyDefaultProps = {
-  id: '',
-  name: '',
-  business: '',
-  slogan: ''
-};
+function projects(state = [], action = {}) {
+  const { type } = action;
 
-export const companyProjectPropTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  department: PropTypes.string,
-  employees: PropTypes.arrayOf(PropTypes.shape(menuEmplyeePropTypes)),
-  companyId: PropTypes.string
-};
+  switch (type) {
+    case 'DELETE_PROJECT':
+      return [
+        ...state.slice(0, action.index),
+        ...state.slice(action.index + 1)
+      ];
 
-export const companyProjectDefaultProps = {
-  id: '',
-  name: '',
-  department: '',
-  employees: [],
-  companyId: ''
-};
+    case 'EDIT_PROJECT':
+      return [
+        ...state.slice(0, action.index),
+        project(state[action.index], action),
+        ...state.slice(action.index + 1)
+      ];
 
-export const companyAddressPropTypes = {
-  id: PropTypes.string,
-  city: PropTypes.string,
-  country: PropTypes.string,
-  street: PropTypes.string,
-  state: PropTypes.string,
-  companyId: PropTypes.string
-};
+    default:
+      return state;
+  }
+}
 
-export const companyAddressDefaultProps = {
-  id: '',
-  city: '',
-  country: '',
-  street: '',
-  state: '',
-  companyId: ''
-};
+function data(state = CompanyDetailsDefaultProps.data, action = {}) {
+  const { type } = action;
 
-export const companyDetailsPropTypes = {
-  loading: PropTypes.bool,
-  data: PropTypes.shape({
-    company: PropTypes.shape(companyPropTypes),
-    address: PropTypes.shape(companyAddressPropTypes),
-    projects: PropTypes.arrayOf(PropTypes.shape(companyProjectPropTypes))
-  }),
-  error: PropTypes.object
-};
+  switch (type) {
+    case 'UPDATE_COMPANY_PROJECT':
+      return state;
 
-export const companyDetailsDefaultProps = {
-  loading: false,
-  data: {
-    company: companyDefaultProps,
-    address: companyAddressDefaultProps,
-    projects: []
-  },
-  error: null
-};
+    case 'DELETE_PROJECT':
+    case 'EDIT_PROJECT':
+      return { ...state, projects: projects(state.projects, action) };
 
-export default function(state = companyDetailsDefaultProps, action = {}) {
+    default:
+      return state;
+  }
+}
+
+export default function(state = CompanyDetailsDefaultProps, action = {}) {
   const { type, ...rest } = action;
 
   switch (type) {
     case 'REQUEST_COMPANY_DETAILS':
     case 'RECEIVE_COMPANY_DETAILS_SUCCESS':
     case 'RECEIVE_COMPANY_DETAILS_FAIL':
+      // console.log(action)
       return rest;
+
+    case 'EDIT_PROJECT':
+    case 'DELETE_PROJECT':
+      return { ...state, data: data(state.data, action) };
 
     default:
       return state;

@@ -5,3 +5,10 @@ export const deleteProject = projectId => {
     method: 'DELETE'
   });
 };
+
+export const editProject = (id, data) => {
+  return request(`/api/project/${id}`, {
+    method: 'PUT',
+    body: data
+  });
+};

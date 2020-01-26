@@ -3,7 +3,7 @@ import CompanyDetails from './Component';
 import { fetchCompanyDetails } from '../actions/companyDetails';
 
 const mapStateToProps = ({ companyDetails }) => {
-  return { companyDetails };
+  return { ...companyDetails };
 };
 
 const mapDispatchToProps = dispatch => ({

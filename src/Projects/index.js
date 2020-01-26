@@ -1,43 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Project from './Project';
-import { companyProjectPropTypes } from '../reducers/companyDetails';
-import DeleteProjectDialog from '../DeleteProjectDialog';
-import { deleteProject } from '../api/projects';
+import { ProjectPropTypes, EmployeePropTypes } from '../models';
 import './styles.scss';
 
-const Projects = ({ projects }) => {
+const Projects = ({ projects, employees }) => {
   return (
     <>
       <div className="projects">
         <h2>Projects</h2>
         <ul>
-          {projects.map(project => {
+          {projects.map((project, index) => {
             return (
               <li key={project.id}>
-                <Project
-                  id={project.id}
-                  name={project.name}
-                  department={project.department}
-                  employees={project.employees}
-                  companyId={project.companyId}
-                />
+                <Project {...project} employees={employees} index={index} />
               </li>
             );
           })}
         </ul>
       </div>
-      <DeleteProjectDialog />
     </>
   );
 };
 
 Projects.propTypes = {
-  projects: PropTypes.arrayOf(PropTypes.shape(companyProjectPropTypes))
+  projects: PropTypes.arrayOf(PropTypes.shape(ProjectPropTypes)),
+  employees: PropTypes.arrayOf(PropTypes.shape(EmployeePropTypes))
 };
 
 Projects.defaultProps = {
-  projects: []
+  projects: [],
+  employees: []
 };
 
 export default Projects;

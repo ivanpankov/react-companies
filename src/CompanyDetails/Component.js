@@ -1,25 +1,21 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router';
-import {
-  companyDetailsPropTypes,
-  companyDetailsDefaultProps
-} from '../reducers/companyDetails';
+import { CompanyDetailsPropTypes, CompanyDetailsDefaultProps } from '../models';
 import Address from '../Address';
 import Projects from '../Projects';
 import Spinner from '../Spinner';
 import { noop } from '../utils';
 import './styles.scss';
 
-const CompanyDetails = ({ fetchCompanyDetails, companyDetails }) => {
-  const { companyId } = useParams();
-  const { data, loading } = companyDetails;
-  const { company, address, projects } = data;
+const CompanyDetails = ({ fetchCompanyDetails, data, loading, match }) => {
+  const { companyId } = match.params;
+  const { company, address, projects, employees } = data;
   const { city, country, street, state } = address;
+
 
   useEffect(() => {
     fetchCompanyDetails(companyId);
-  }, [companyId]);
+  }, [companyId, fetchCompanyDetails]);
 
   return (
     <div className="company-details">
@@ -37,7 +33,9 @@ const CompanyDetails = ({ fetchCompanyDetails, companyDetails }) => {
               street={street}
               state={state}
             />
-            {projects.length ? <Projects projects={projects} /> : null}
+            {projects.length ? (
+              <Projects projects={projects} employees={employees} />
+            ) : null}
           </>
         )}
       </div>
@@ -46,11 +44,11 @@ const CompanyDetails = ({ fetchCompanyDetails, companyDetails }) => {
 };
 
 CompanyDetails.propTypes = {
-  companyDetails: PropTypes.shape(companyDetailsPropTypes),
+  ...CompanyDetailsPropTypes,
   fetchCompanyDetails: PropTypes.func
 };
 CompanyDetails.defaultProps = {
-  companyDetails: companyDetailsDefaultProps,
+  ...CompanyDetailsDefaultProps,
   fetchCompanyDetails: noop
 };
 

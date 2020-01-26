@@ -1,11 +1,22 @@
 import { connect } from 'react-redux';
 import Project from './Component';
-import { setShowDialog } from '../../actions/deleteProject';
+import {
+  deleteProject as deleteProjectAction,
+  editProject as editProjectAction
+} from '../../actions/companyDetails';
+import { deleteProject, editProject } from '../../api/projects';
+
+const mapStateToProps = () => {
+  return { deleteProject, editProject };
+};
 
 const mapDispatchToProps = dispatch => ({
-  showShowDialog: (show, projectData) => {
-    dispatch(setShowDialog(show, projectData));
+  deleteProjectAction: index => {
+    dispatch(deleteProjectAction(index));
+  },
+  editProjectAction: (index, data) => {
+    dispatch(editProjectAction(index, data));
   }
 });
 
-export default connect(null, mapDispatchToProps)(Project);
+export default connect(mapStateToProps, mapDispatchToProps)(Project);

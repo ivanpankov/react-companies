@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  companyAddressDefaultProps,
-  companyAddressPropTypes
-} from '../reducers/companyDetails';
+import { AddressDefaultProps, AddressPropTypes } from '../models';
 import './styles.scss';
 
 const Address = ({ city, country, street, state }) => {
@@ -23,8 +20,8 @@ const Address = ({ city, country, street, state }) => {
   );
 };
 
-Address.propTypes = companyAddressPropTypes;
+Address.propTypes = { ...AddressPropTypes };
 
-Address.defaultProps = companyAddressDefaultProps;
+Address.defaultProps = { ...AddressDefaultProps };
 
 export default Address;

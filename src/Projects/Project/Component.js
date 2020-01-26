@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
   companyProjectDefaultProps,
   companyProjectPropTypes
-} from '../reducers/companyDetails';
-import Input from '../Input';
+} from '../../reducers/companyDetails';
+import Input from '../../Input';
+import { noop } from '../../utils';
 
-const Project = ({ name, department, employees }) => {
+const Project = ({
+  id,
+  name,
+  department,
+  employees,
+  showShowDialog,
+  companyId
+}) => {
   const [isEdit, setEdit] = useState(false);
-
-  console.log(employees);
 
   const handleEdit = () => {
     setEdit(true);
   };
 
-  const handleSave = () => {
-    setEdit(false);
+  const handleDelete = () => {
+    showShowDialog(true, { id, companyId, name });
   };
 
   return (
@@ -26,7 +33,7 @@ const Project = ({ name, department, employees }) => {
           <Input isEdit={isEdit} value={name} onChange={() => {}} />
           <div>
             <i className="fa fa-pencil" onClick={handleEdit} />
-            <i className="fa fa-trash-o ml-3" />
+            <i className="fa fa-trash-o ml-3" onClick={handleDelete} />
           </div>
         </div>
         <div className="card-body">
@@ -38,7 +45,7 @@ const Project = ({ name, department, employees }) => {
           {employees.length ? (
             <div>
               <span className="font-weight-bold">Employees</span>
-              <table class="table">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
@@ -72,8 +79,11 @@ const Project = ({ name, department, employees }) => {
   );
 };
 
-Project.propTypes = companyProjectPropTypes;
+Project.propTypes = {
+  ...companyProjectPropTypes,
+  showShowDialog: PropTypes.func
+};
 
-Project.defaultProps = companyProjectDefaultProps;
+Project.defaultProps = { ...companyProjectDefaultProps, showShowDialog: noop };
 
 export default Project;

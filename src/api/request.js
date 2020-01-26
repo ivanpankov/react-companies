@@ -10,7 +10,7 @@ const request = (url, options = {}) => {
       ...defaultHeaders,
       ...options.headers
     },
-    body: options.body
+    body: JSON.stringify(options.body)
   };
 
   return fetch(url, requestOptions).then(async res => {

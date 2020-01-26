@@ -8,6 +8,7 @@ import {
 import Address from '../Address';
 import Projects from '../Projects';
 import Spinner from '../Spinner';
+import { noop } from '../utils';
 import './styles.scss';
 
 const CompanyDetails = ({ fetchCompanyDetails, companyDetails }) => {
@@ -15,8 +16,6 @@ const CompanyDetails = ({ fetchCompanyDetails, companyDetails }) => {
   const { data, loading } = companyDetails;
   const { company, address, projects } = data;
   const { city, country, street, state } = address;
-
-  console.log(companyDetails);
 
   useEffect(() => {
     fetchCompanyDetails(companyId);
@@ -46,7 +45,13 @@ const CompanyDetails = ({ fetchCompanyDetails, companyDetails }) => {
   );
 };
 
-CompanyDetails.propTypes = companyDetailsPropTypes;
-CompanyDetails.defaultProps = companyDetailsDefaultProps;
+CompanyDetails.propTypes = {
+  companyDetails: PropTypes.shape(companyDetailsPropTypes),
+  fetchCompanyDetails: PropTypes.func
+};
+CompanyDetails.defaultProps = {
+  companyDetails: companyDetailsDefaultProps,
+  fetchCompanyDetails: noop
+};
 
 export default CompanyDetails;

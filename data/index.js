@@ -1,7 +1,7 @@
 const companies = require('./companies.json');
 const companyAddresses = require('./company-addresses.json');
 const employees = require('./employees.json');
-const companyProjects = require('./projects.json');
+let companyProjects = require('./projects.json');
 
 const employeesToObject = employees => {
   const result = {};
@@ -112,9 +112,14 @@ const getEmployees = () => {
   return employees;
 };
 
+const deleteProject = id => {
+  companyProjects = companyProjects.filter(project => project.id !== id);
+};
+
 module.exports = {
   getCompanies,
   getEmployees,
   getCompaniesTree,
-  getCompanyDetails
+  getCompanyDetails,
+  deleteProject
 };

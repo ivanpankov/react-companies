@@ -13,11 +13,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(staticAssets));
 
-// app.use((req, res, next) => {
-//   setTimeout(() => {
-//     return next();
-//   }, 1000)
-// })
+app.use((req, res, next) => {
+  setTimeout(() => {
+    return next();
+  }, 500)
+})
 
 app.get('/', (req, res) => {
   const indexFilePath = path.join(__dirname, staticAssets, 'index.html');
@@ -45,6 +45,11 @@ app.get('/api/company-details', function(req, res) {
 
 app.get('/api/employees', function(req, res) {
   res.json(data.getEmployees());
+});
+
+app.delete('/api/project/:id', function(req, res) {
+  data.deleteProject(req.params.id);
+  res.json({ message: 'Project has been deleted.' });
 });
 
 app.all('*', function(req, res) {

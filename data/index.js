@@ -60,9 +60,10 @@ function removeProject(id) {
 }
 
 function addProject(project) {
-  // TODO: check if employee exists
+  // TODO: check if project exists
   project.id = uuidv1();
-  projects.push(employee);
+  projects.unshift(project);
+  return project;
 }
 
 function editProject(id, data) {
@@ -163,5 +164,6 @@ module.exports = {
   getCompaniesTree,
   getCompanyDetails,
   removeProject,
-  editProject
+  editProject,
+  addProject
 };

@@ -5,7 +5,7 @@ function project(state = ProjectDefaultProps, action = {}) {
 
   switch (type) {
     case 'EDIT_PROJECT':
-      return {...state, ...action.data};
+      return { ...state, ...action.data };
 
     default:
       return state;
@@ -29,6 +29,9 @@ function projects(state = [], action = {}) {
         ...state.slice(action.index + 1)
       ];
 
+    case 'ADD_PROJECT':
+      return [action.data, ...state];
+
     default:
       return state;
   }
@@ -43,6 +46,7 @@ function data(state = CompanyDetailsDefaultProps.data, action = {}) {
 
     case 'DELETE_PROJECT':
     case 'EDIT_PROJECT':
+    case 'ADD_PROJECT':
       return { ...state, projects: projects(state.projects, action) };
 
     default:
@@ -62,6 +66,7 @@ export default function(state = CompanyDetailsDefaultProps, action = {}) {
 
     case 'EDIT_PROJECT':
     case 'DELETE_PROJECT':
+    case 'ADD_PROJECT':
       return { ...state, data: data(state.data, action) };
 
     default:

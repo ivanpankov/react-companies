@@ -12,3 +12,10 @@ export const editProject = (id, data) => {
     body: data
   });
 };
+
+export const addProject = data => {
+  return request(`/api/project`, {
+    method: 'POST',
+    body: data
+  });
+};

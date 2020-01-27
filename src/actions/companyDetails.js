@@ -55,3 +55,9 @@ export const editProject = (index, data) => ({
   index,
   data
 });
+
+export const ADD_PROJECT = 'ADD_PROJECT';
+export const addProject = data => ({
+  type: ADD_PROJECT,
+  data
+});

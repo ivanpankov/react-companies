@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
-import DeleteProjectDialog from '../../DeleteProjectDialog';
+import DeleteConfirmationDialog from '../../DeleteConfirmationDialog';
 import EditProjectDialog from '../../EditProjectDialog';
+import Empliyees from './Employees';
 import {
   ProjectDefaultProps,
   ProjectPropTypes,
@@ -16,12 +16,12 @@ const Project = ({
   department,
   employees,
   employeesId,
-  companyId,
   index,
   deleteProject,
   deleteProjectAction,
   editProject,
-  editProjectAction
+  editProjectAction,
+  companyId
 }) => {
   const [showDialog, setShowDialog] = useState({
     delete: false,
@@ -57,7 +57,6 @@ const Project = ({
   };
 
   const handleSave = data => {
-    // console.log('save', date);
     editProject(id, data)
       .then(data => {
         editProjectAction(index, data);
@@ -89,51 +88,28 @@ const Project = ({
               <span className="font-weight-bold">Department:</span>
               <span> {department}</span>
             </div>
-            <br />
-            {employees.length ? (
-              <div>
-                <span className="font-weight-bold">Employees</span>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">Date of birth</th>
-                      <th scope="col">Job Title</th>
-                      <th scope="col">Job Area</th>
-                      <th scope="col">Job Type</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {projectEmployees.map(employee => {
-                      return (
-                        <tr key={employee.id}>
-                          <td>{`${employee.firstName} ${employee.lastName}`}</td>
-                          <td>
-                            {format(
-                              new Date(employee.dateOfBirth),
-                              'dd/MM/yyyy'
-                            )}
-                          </td>
-                          <td>{employee.jobTitle}</td>
-                          <td>{employee.jobArea}</td>
-                          <td>{employee.jobType}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            ) : null}
+            <Empliyees
+              employees={projectEmployees}
+              projectId={id}
+              projectIndex={index}
+              companyId={companyId}
+            />
           </div>
         </div>
       </div>
-      <DeleteProjectDialog
+      <DeleteConfirmationDialog
+        header="Delete Project"
         show={showDialog.delete}
-        projectName={name}
         onClose={handleCloseDialog}
         onDelete={handleDelete}
-      />
+      >
+        <p>
+          Are you sure you want to delete <strong>{name} </strong>
+          project?
+        </p>
+      </DeleteConfirmationDialog>
       <EditProjectDialog
+        header="Edit Project"
         show={showDialog.edit}
         name={name}
         department={department}
@@ -150,7 +126,8 @@ Project.propTypes = {
   index: PropTypes.number,
   deleteProject: PropTypes.func,
   editProject: PropTypes.func,
-  editProjectAction: PropTypes.func
+  editProjectAction: PropTypes.func,
+  companyId: PropTypes.string
 };
 
 Project.defaultProps = {
@@ -159,7 +136,8 @@ Project.defaultProps = {
   index: 0,
   deleteProject: noop,
   editProject: noop,
-  editProjectAction: noop
+  editProjectAction: noop,
+  companyId: ''
 };
 
 export default Project;

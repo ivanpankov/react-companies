@@ -52,6 +52,10 @@ app.put('/api/project/:id', function(req, res) {
   res.json(data.editProject(req.params.id, req.body));
 });
 
+app.post('/api/project', function(req, res) {
+  res.json(data.addProject(req.body));
+});
+
 app.all('*', function(req, res) {
   res.status(404).send();
 });

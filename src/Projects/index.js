@@ -1,36 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Project from './Project';
-import { ProjectPropTypes, EmployeePropTypes } from '../models';
-import './styles.scss';
+import { connect } from 'react-redux';
+import Projects from './Component';
+import { addProject } from '../api/projects';
+import { addProject as addProjectAction } from '../actions/companyDetails';
 
-const Projects = ({ projects, employees }) => {
-  return (
-    <>
-      <div className="projects">
-        <h2>Projects</h2>
-        <ul>
-          {projects.map((project, index) => {
-            return (
-              <li key={project.id}>
-                <Project {...project} employees={employees} index={index} />
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </>
-  );
+const mapStateToProps = () => {
+  return { addProject };
 };
 
-Projects.propTypes = {
-  projects: PropTypes.arrayOf(PropTypes.shape(ProjectPropTypes)),
-  employees: PropTypes.arrayOf(PropTypes.shape(EmployeePropTypes))
-};
+const mapDispatchToProps = dispatch => ({
+  addProjectAction: data => {
+    dispatch(addProjectAction(data));
+  }
+});
 
-Projects.defaultProps = {
-  projects: [],
-  employees: []
-};
-
-export default Projects;
+export default connect(mapStateToProps, mapDispatchToProps)(Projects);

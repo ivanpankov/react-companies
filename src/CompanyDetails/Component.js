@@ -12,7 +12,6 @@ const CompanyDetails = ({ fetchCompanyDetails, data, loading, match }) => {
   const { company, address, projects, employees } = data;
   const { city, country, street, state } = address;
 
-
   useEffect(() => {
     fetchCompanyDetails(companyId);
   }, [companyId, fetchCompanyDetails]);
@@ -33,9 +32,11 @@ const CompanyDetails = ({ fetchCompanyDetails, data, loading, match }) => {
               street={street}
               state={state}
             />
-            {projects.length ? (
-              <Projects projects={projects} employees={employees} />
-            ) : null}
+            <Projects
+              projects={projects}
+              employees={employees}
+              companyId={companyId}
+            />
           </>
         )}
       </div>

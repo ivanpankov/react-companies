@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from '../utils';
 
-const DeleteProjectDialog = ({ show, projectName, onDelete, onClose }) => {
+const DeleteConfirmationDialog = ({ show, onDelete, onClose, header, children }) => {
   return show ? (
     <div className="modal" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Delete Project</h5>
+            <h5 className="modal-title">{header}</h5>
             <button
               type="button"
               className="close"
@@ -18,12 +18,7 @@ const DeleteProjectDialog = ({ show, projectName, onDelete, onClose }) => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">
-            <p>
-              Are you sure you want to delete <strong>{projectName}</strong>{' '}
-              project?
-            </p>
-          </div>
+          <div className="modal-body">{children}</div>
           <div className="modal-footer">
             <button
               type="button"
@@ -46,18 +41,20 @@ const DeleteProjectDialog = ({ show, projectName, onDelete, onClose }) => {
   ) : null;
 };
 
-DeleteProjectDialog.propTypes = {
+DeleteConfirmationDialog.propTypes = {
   show: PropTypes.bool,
-  projectName: PropTypes.string,
   onClose: PropTypes.func,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
+  header: PropTypes.string,
+  children: PropTypes.node
 };
 
-DeleteProjectDialog.defaultProps = {
+DeleteConfirmationDialog.defaultProps = {
   show: false,
-  projectName: '',
   onClose: noop,
-  onDelete: noop
+  onDelete: noop,
+  header: '',
+  children: null
 };
 
-export default DeleteProjectDialog;
+export default DeleteConfirmationDialog;

@@ -19,3 +19,9 @@ export const addProject = data => {
     body: data
   });
 };
+
+export const deleteEmployee = (id, employeeId) => {
+  return request(`/api/project/${id}/${employeeId}`, {
+    method: 'DELETE'
+  });
+};

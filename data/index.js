@@ -26,21 +26,19 @@ function getEmployeeProjects(id) {
   return projects.filter(project => project.employeesId.includes(id));
 }
 
-function removeEmployeeFromProject(project, employeeId) {
-  project.employeesId = project.employeesId.filter(id => id !== employeeId);
-}
+function removeEmployeeFromProject(projectId, employeeId) {
+  const targetProject = projects.find(project => project.id === projectId);
 
-function removeEmployee(id) {
-  const employeeIndex = getIndexById(employees, id);
-  employees.splice(employeeIndex, 1); // remove employee
+  if (targetProject) {
+    targetProject.employeesId = targetProject.employeesId.filter(
+      id => id !== employeeId
+    );
+  } else {
+    log('Project does not exist');
+    // TODO: handle error
+  }
 
-  // remove employee from projects
-  const employeeProjects = getEmployeeProjects(id);
-  employeeProjects.forEach(project => {
-    removeEmployeeFromProject(project, id);
-  });
-
-  log(`Employee with id: '${id}' has been removed.`);
+  log(`Employee with id: '${employeeId}' has been removed.`);
 }
 
 function addEmployee(employee) {
@@ -165,5 +163,6 @@ module.exports = {
   getCompanyDetails,
   removeProject,
   editProject,
-  addProject
+  addProject,
+  removeEmployeeFromProject
 };

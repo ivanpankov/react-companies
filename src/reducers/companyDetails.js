@@ -1,11 +1,29 @@
 import { CompanyDetailsDefaultProps, ProjectDefaultProps } from '../models';
 
+function employeesId(state = [], action = {}) {
+  const { type } = action;
+
+  switch (type) {
+    case 'DELETE_EMPLOYEE':
+      return [
+        ...state.slice(0, action.employeeIndex),
+        ...state.slice(action.employeeIndex + 1)
+      ];
+
+    default:
+      return state;
+  }
+}
+
 function project(state = ProjectDefaultProps, action = {}) {
   const { type } = action;
 
   switch (type) {
     case 'EDIT_PROJECT':
       return { ...state, ...action.data };
+
+    case 'DELETE_EMPLOYEE':
+      return { ...state, employeesId: employeesId(state.employeesId, action) };
 
     default:
       return state;
@@ -23,6 +41,7 @@ function projects(state = [], action = {}) {
       ];
 
     case 'EDIT_PROJECT':
+    case 'DELETE_EMPLOYEE':
       return [
         ...state.slice(0, action.index),
         project(state[action.index], action),
@@ -47,6 +66,7 @@ function data(state = CompanyDetailsDefaultProps.data, action = {}) {
     case 'DELETE_PROJECT':
     case 'EDIT_PROJECT':
     case 'ADD_PROJECT':
+    case 'DELETE_EMPLOYEE':
       return { ...state, projects: projects(state.projects, action) };
 
     default:
@@ -67,6 +87,7 @@ export default function(state = CompanyDetailsDefaultProps, action = {}) {
     case 'EDIT_PROJECT':
     case 'DELETE_PROJECT':
     case 'ADD_PROJECT':
+    case 'DELETE_EMPLOYEE':
       return { ...state, data: data(state.data, action) };
 
     default:

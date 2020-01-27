@@ -61,3 +61,23 @@ export const addProject = data => ({
   type: ADD_PROJECT,
   data
 });
+
+export const DELETE_EMPLOYEE = 'DELETE_EMPLOYEE';
+export const deleteEmployee = (projectIndex, employeeIndex) => ({
+  type: DELETE_EMPLOYEE,
+  index: projectIndex,
+  employeeIndex
+});
+
+export const EDIT_EMPLOYEE = 'EDIT_EMPLOYEE';
+export const editEmployee = (index, data) => ({
+  type: EDIT_EMPLOYEE,
+  index,
+  data
+});
+
+export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
+export const addEmployee = data => ({
+  type: ADD_EMPLOYEE,
+  data
+});

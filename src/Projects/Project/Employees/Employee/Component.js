@@ -15,7 +15,9 @@ const Employee = ({
   dateOfBirth,
   projectIndex,
   projectId,
-  deleteEmployee
+  deleteEmployee,
+  deleteEmployeeAction,
+  index
 }) => {
   const [showDialog, setShowDialog] = useState({
     delete: false,
@@ -43,9 +45,8 @@ const Employee = ({
     console.log('delete');
     deleteEmployee(projectId, id)
       .then(data => {
-        console.log(data);
         handleCloseDialog();
-        // deleteEmployeeAction(index);
+        deleteEmployeeAction(projectIndex, index);
       })
       .catch(err => {
         console.log(err);
@@ -97,13 +98,17 @@ Employee.propTypes = {
   ...EmployeePropTypes,
   projectIndex: PropTypes.number,
   projectId: PropTypes.string,
-  deleteEmployee: PropTypes.func
+  deleteEmployee: PropTypes.func,
+  deleteEmployeeAction: PropTypes.func,
+  index: PropTypes.number
 };
 Employee.defaultProps = {
   ...EmployeeDefaultProps,
   projectIndex: 0,
   projectId: '',
-  deleteEmployee: noop
+  deleteEmployee: noop,
+  deleteEmployeeAction: noop,
+  index: 0
 };
 
 export default Employee;

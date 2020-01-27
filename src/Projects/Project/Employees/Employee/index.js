@@ -1,18 +1,16 @@
 import { connect } from 'react-redux';
 import Employee from './Component';
 import { deleteEmployee } from '../../../../api/projects';
+import { deleteEmployee as deleteEmployeeAction } from '../../../../actions/companyDetails';
 
 const mapStateToProps = () => {
   return { deleteEmployee };
 };
 
 const mapDispatchToProps = dispatch => ({
-  //   deleteProjectAction: index => {
-  //     dispatch(deleteProjectAction(index));
-  //   },
-  //   editProjectAction: (index, data) => {
-  //     dispatch(editProjectAction(index, data));
-  //   }
+  deleteEmployeeAction: (projectIndex, employeeIndex) => {
+    dispatch(deleteEmployeeAction(projectIndex, employeeIndex));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Employee);

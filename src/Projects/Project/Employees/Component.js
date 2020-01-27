@@ -24,13 +24,14 @@ const Employees = ({ employees, projectId, projectIndex, companyId }) => {
           </tr>
         </thead>
         <tbody>
-          {employees.map(employee => {
+          {employees.map((employee, index) => {
             return (
               <Employee
                 key={employee.id}
                 {...employee}
                 projectIndex={projectIndex}
                 projectId={projectId}
+                index={index}
               />
             );
           })}

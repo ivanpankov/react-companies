@@ -43,10 +43,6 @@ app.get('/api/company-details', function(req, res) {
   res.json(data.getCompanyDetails(req.query.companyId));
 });
 
-// app.get('/api/employees', function(req, res) {
-//   res.json(data.getEmployees());
-// });
-
 // delete Project
 app.delete('/api/project/:id', function(req, res) {
   data.removeProject(req.params.id);
@@ -67,6 +63,10 @@ app.post('/api/project', function(req, res) {
 app.delete('/api/project/:id/:employeeId', function(req, res) {
   data.removeEmployeeFromProject(req.params.id, req.params.employeeId);
   res.json({ message: 'Employee has been deleted.' });
+});
+
+app.put('/api/employee/:id', function(req, res) {
+  res.json(data.editEmployee(req.params.id, req.body));
 });
 
 // handle not found

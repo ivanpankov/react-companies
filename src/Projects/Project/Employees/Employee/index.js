@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import Employee from './Component';
 import { deleteEmployee } from '../../../../api/projects';
+import { editEmployee } from '../../../../api/employees';
 import { deleteEmployee as deleteEmployeeAction } from '../../../../actions/companyDetails';
 
 const mapStateToProps = () => {
-  return { deleteEmployee };
+  return { deleteEmployee, editEmployee };
 };
 
 const mapDispatchToProps = dispatch => ({

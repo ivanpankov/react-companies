@@ -1,5 +1,34 @@
 import { CompanyDetailsDefaultProps, ProjectDefaultProps } from '../models';
 
+function employee(state = [], action = {}) {
+  const { type } = action;
+
+  switch (type) {
+    case 'EDIT_EMPLOYEE':
+      console.log(state);
+      return state;
+
+    default:
+      return state;
+  }
+}
+
+function employees(state = [], action = {}) {
+  const { type } = action;
+
+  switch (type) {
+    case 'EDIT_EMPLOYEE':
+      return [
+        ...state.slice(0, action.index),
+        employee(state[action.index]),
+        ...state.slice(action.index + 1)
+      ];
+
+    default:
+      return state;
+  }
+}
+
 function employeesId(state = [], action = {}) {
   const { type } = action;
 
@@ -66,8 +95,10 @@ function data(state = CompanyDetailsDefaultProps.data, action = {}) {
     case 'DELETE_PROJECT':
     case 'EDIT_PROJECT':
     case 'ADD_PROJECT':
-    case 'DELETE_EMPLOYEE':
       return { ...state, projects: projects(state.projects, action) };
+
+    case 'DELETE_EMPLOYEE':
+      return { ...state, employees: employees(state.employees, action) };
 
     default:
       return state;

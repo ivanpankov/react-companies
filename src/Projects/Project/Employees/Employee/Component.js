@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import DeleteConfirmationDialog from '../../../../DeleteConfirmationDialog';
+import EditEmployeeDialog from '../../../../EditEmployeeDialog';
 import { EmployeePropTypes, EmployeeDefaultProps } from '../../../../models';
-import { noop } from '../../../../utils';
+import { noop, DATE_FORMAT } from '../../../../utils';
 
 const Employee = ({
   id,
@@ -17,6 +18,7 @@ const Employee = ({
   projectId,
   deleteEmployee,
   deleteEmployeeAction,
+  editEmployee,
   index
 }) => {
   const [showDialog, setShowDialog] = useState({
@@ -42,7 +44,6 @@ const Employee = ({
   };
 
   const handleDelete = () => {
-    console.log('delete');
     deleteEmployee(projectId, id)
       .then(data => {
         handleCloseDialog();
@@ -54,21 +55,20 @@ const Employee = ({
   };
 
   const handleSave = data => {
-    console.log('save');
-    // editEmployee(id, data)
-    //   .then(data => {
-    //     editEmployeeAction(index, data);
-    //     handleCloseDialog();
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    editEmployee(id, data)
+      .then(data => {
+        // editEmployeeAction(index, data);
+        handleCloseDialog();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
     <tr>
       <td>{`${firstName} ${lastName}`}</td>
-      <td>{format(new Date(dateOfBirth), 'dd/MM/yyyy')}</td>
+      <td>{format(new Date(dateOfBirth), DATE_FORMAT)}</td>
       <td>{jobTitle}</td>
       <td>{jobArea}</td>
       <td>{jobType}</td>
@@ -88,6 +88,18 @@ const Employee = ({
               from project?
             </p>
           </DeleteConfirmationDialog>
+          <EditEmployeeDialog
+            header="Edit Employee"
+            show={showDialog.edit}
+            firstName={firstName}
+            dateOfBirth={dateOfBirth}
+            lastName={lastName}
+            jobTitle={jobTitle}
+            jobArea={jobArea}
+            jobType={jobType}
+            onClose={handleCloseDialog}
+            onSave={handleSave}
+          />
         </div>
       </td>
     </tr>

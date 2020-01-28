@@ -49,7 +49,7 @@ function addEmployee(employee) {
 
 function editEmployee(id, data) {
   const employeeIndex = getIndexById(employees, id);
-  Object.assign(employees[employeeIndex], data);
+  return Object.assign(employees[employeeIndex], data);
 }
 
 function removeProject(id) {
@@ -66,8 +66,7 @@ function addProject(project) {
 
 function editProject(id, data) {
   const projectIndex = getIndexById(projects, id);
-  Object.assign(projects[projectIndex], data);
-  return projects[projectIndex];
+  return Object.assign(projects[projectIndex], data);
 }
 
 function addEmployeeToProject(project, employeeId) {
@@ -164,5 +163,6 @@ module.exports = {
   removeProject,
   editProject,
   addProject,
-  removeEmployeeFromProject
+  removeEmployeeFromProject,
+  editEmployee
 };

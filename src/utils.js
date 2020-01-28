@@ -9,3 +9,5 @@ export const arrayToObj = arr => {
 
   return result;
 };
+
+export const DATE_FORMAT = 'dd/MM/yyyy';

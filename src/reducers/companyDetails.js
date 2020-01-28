@@ -1,12 +1,11 @@
 import { CompanyDetailsDefaultProps, ProjectDefaultProps } from '../models';
 
 function employee(state = [], action = {}) {
-  const { type } = action;
+  const { type, data } = action;
 
   switch (type) {
     case 'EDIT_EMPLOYEE':
-      console.log(state);
-      return state;
+      return { ...state, ...data };
 
     default:
       return state;
@@ -18,10 +17,12 @@ function employees(state = [], action = {}) {
 
   switch (type) {
     case 'EDIT_EMPLOYEE':
+      const employeeIndex = state.findIndex(item => item.id === action.id);
+
       return [
-        ...state.slice(0, action.index),
-        employee(state[action.index]),
-        ...state.slice(action.index + 1)
+        ...state.slice(0, employeeIndex),
+        employee(state[employeeIndex], action),
+        ...state.slice(employeeIndex + 1)
       ];
 
     default:
@@ -95,9 +96,10 @@ function data(state = CompanyDetailsDefaultProps.data, action = {}) {
     case 'DELETE_PROJECT':
     case 'EDIT_PROJECT':
     case 'ADD_PROJECT':
+    case 'DELETE_EMPLOYEE':
       return { ...state, projects: projects(state.projects, action) };
 
-    case 'DELETE_EMPLOYEE':
+    case 'EDIT_EMPLOYEE':
       return { ...state, employees: employees(state.employees, action) };
 
     default:
@@ -112,13 +114,13 @@ export default function(state = CompanyDetailsDefaultProps, action = {}) {
     case 'REQUEST_COMPANY_DETAILS':
     case 'RECEIVE_COMPANY_DETAILS_SUCCESS':
     case 'RECEIVE_COMPANY_DETAILS_FAIL':
-      // console.log(action)
       return rest;
 
     case 'EDIT_PROJECT':
     case 'DELETE_PROJECT':
     case 'ADD_PROJECT':
     case 'DELETE_EMPLOYEE':
+    case 'EDIT_EMPLOYEE':
       return { ...state, data: data(state.data, action) };
 
     default:

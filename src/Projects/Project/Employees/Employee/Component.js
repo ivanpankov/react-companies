@@ -18,6 +18,7 @@ const Employee = ({
   projectId,
   deleteEmployee,
   deleteEmployeeAction,
+  editEmployeeAction,
   editEmployee,
   index
 }) => {
@@ -57,7 +58,7 @@ const Employee = ({
   const handleSave = data => {
     editEmployee(id, data)
       .then(data => {
-        // editEmployeeAction(index, data);
+        editEmployeeAction(id, data);
         handleCloseDialog();
       })
       .catch(err => {
@@ -112,6 +113,7 @@ Employee.propTypes = {
   projectId: PropTypes.string,
   deleteEmployee: PropTypes.func,
   deleteEmployeeAction: PropTypes.func,
+  editEmployeeAction: PropTypes.func,
   index: PropTypes.number
 };
 Employee.defaultProps = {
@@ -120,6 +122,7 @@ Employee.defaultProps = {
   projectId: '',
   deleteEmployee: noop,
   deleteEmployeeAction: noop,
+  editEmployeeAction: noop,
   index: 0
 };
 

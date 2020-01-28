@@ -70,9 +70,9 @@ export const deleteEmployee = (projectIndex, employeeIndex) => ({
 });
 
 export const EDIT_EMPLOYEE = 'EDIT_EMPLOYEE';
-export const editEmployee = (index, data) => ({
+export const editEmployee = (id, data) => ({
   type: EDIT_EMPLOYEE,
-  index,
+  id,
   data
 });
 
@@ -81,3 +81,4 @@ export const addEmployee = data => ({
   type: ADD_EMPLOYEE,
   data
 });
+

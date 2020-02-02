@@ -12,7 +12,8 @@ const Employees = ({
   addEmployee,
   addEmployeeAction,
   companyId,
-  fetchCompaniesTree
+  fetchCompaniesTree,
+  notify
 }) => {
   const [showDialog, setShowDialog] = useState(false);
 
@@ -32,9 +33,10 @@ const Employees = ({
         addEmployeeAction(projectIndex, response);
         fetchCompaniesTree();
         handleCloseDialog();
+        notify('info', 'Employee has been createed.');
       })
       .catch(err => {
-        console.log(err);
+        notify('error', err.message);
       });
   };
 
@@ -91,7 +93,8 @@ Employees.propTypes = {
   projectIndex: PropTypes.number,
   companyId: PropTypes.string,
   addEmployee: PropTypes.func,
-  fetchCompaniesTree: PropTypes.func
+  fetchCompaniesTree: PropTypes.func,
+  notify: PropTypes.func
 };
 
 Employees.defaultProps = {
@@ -100,7 +103,8 @@ Employees.defaultProps = {
   projectIndex: 0,
   companyId: '',
   addEmployee: noop,
-  fetchCompaniesTree: noop
+  fetchCompaniesTree: noop,
+  notify: noop
 };
 
 export default Employees;

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Notification from './Notification';
 import { NotificationsDefaultProps, NotificationsPropTypes } from '../models';
 import './styles.scss';

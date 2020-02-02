@@ -49,10 +49,13 @@ Good luck and happy hacking!
 ## Dev notes
 
 ### Start development server
+application is located at localhost://3000
 
 ```
 npm start
 ```
+
+for server data see next section
 
 ### Start Production / Data server
 
@@ -63,3 +66,11 @@ npm run server
 `npm run server` provides API data. Same server is used for production. In case of production be sure to build application first to create `/bild` folder with static files.
 
 App is tested with `NodeJS v12.12.0`
+
+
+### Build for production
+```
+npm run build
+```
+
+Than run `npm run server` and access application is located at localhost://3001

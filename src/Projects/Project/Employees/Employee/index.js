@@ -7,6 +7,7 @@ import {
   editEmployee as editEmployeeAction
 } from '../../../../actions/companyDetails';
 import { fetchCompaniesTree } from '../../../../actions/companiesTree';
+import { notify } from '../../../../actions/notification';
 
 const mapStateToProps = () => {
   return { deleteEmployee, editEmployee };
@@ -21,6 +22,9 @@ const mapDispatchToProps = dispatch => ({
   },
   fetchCompaniesTree: () => {
     dispatch(fetchCompaniesTree());
+  },
+  notify: (type, text) => {
+    dispatch(notify(type, text));
   }
 });
 

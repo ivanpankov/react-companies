@@ -21,7 +21,8 @@ const Employee = ({
   editEmployeeAction,
   editEmployee,
   index,
-  fetchCompaniesTree
+  fetchCompaniesTree,
+  notify
 }) => {
   const [showDialog, setShowDialog] = useState({
     delete: false,
@@ -50,9 +51,10 @@ const Employee = ({
       .then(data => {
         handleCloseDialog();
         deleteEmployeeAction(projectIndex, index);
+        notify('info', 'Employee has been removedf from project.');
       })
       .catch(err => {
-        console.log(err);
+        notify('error', err.message);
       });
   };
 
@@ -62,9 +64,10 @@ const Employee = ({
         editEmployeeAction(id, data);
         handleCloseDialog();
         fetchCompaniesTree();
+        notify('info', 'Employee has been updated.');
       })
       .catch(err => {
-        console.log(err);
+        notify('error', err.message);
       });
   };
 
@@ -117,7 +120,9 @@ Employee.propTypes = {
   deleteEmployeeAction: PropTypes.func,
   editEmployeeAction: PropTypes.func,
   index: PropTypes.number,
-  fetchCompaniesTree: PropTypes.func
+  fetchCompaniesTree: PropTypes.func,
+  notify: PropTypes.func
+
 };
 Employee.defaultProps = {
   ...EmployeeDefaultProps,
@@ -127,7 +132,9 @@ Employee.defaultProps = {
   deleteEmployeeAction: noop,
   editEmployeeAction: noop,
   index: 0,
-  fetchCompaniesTree: noop
+  fetchCompaniesTree: noop,
+  notify: noop
+
 };
 
 export default Employee;

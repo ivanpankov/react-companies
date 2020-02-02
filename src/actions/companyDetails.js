@@ -1,4 +1,4 @@
-import { notification } from './notification';
+import { notify } from './notification';
 import { CompanyDetailsDefaultProps } from '../models';
 import { getCompanyDetails } from '../api/companies';
 
@@ -33,7 +33,7 @@ export const fetchCompanyDetails = id => dispatch => {
     })
     .catch(error => {
       dispatch(receiveCompanyDetailsFail(error));
-      dispatch(notification.error(error.toString()));
+      dispatch(notify('error', error.message));
     });
 };
 

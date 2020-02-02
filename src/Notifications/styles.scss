@@ -1,0 +1,17 @@
+.notifications {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 250px;
+  height: 70%;
+  overflow: hidden;
+  pointer-events: none;
+
+  .notification-type {
+    text-transform: uppercase;
+  }
+
+  .notification {
+    opacity: 1;
+  }
+}

@@ -21,7 +21,8 @@ const Project = ({
   deleteProjectAction,
   editProject,
   editProjectAction,
-  companyId
+  companyId,
+  notify
 }) => {
   const [showDialog, setShowDialog] = useState({
     delete: false,
@@ -50,9 +51,10 @@ const Project = ({
       .then(data => {
         handleCloseDialog();
         deleteProjectAction(index);
+        notify('error', 'Project has been removed.');
       })
       .catch(err => {
-        console.log(err);
+        notify('error', err.message);
       });
   };
 
@@ -61,9 +63,10 @@ const Project = ({
       .then(data => {
         editProjectAction(index, data);
         handleCloseDialog();
+        notify('info', 'Project has been updated.');
       })
       .catch(err => {
-        console.log(err);
+        notify('error', err.message);
       });
   };
 
@@ -127,7 +130,8 @@ Project.propTypes = {
   deleteProject: PropTypes.func,
   editProject: PropTypes.func,
   editProjectAction: PropTypes.func,
-  companyId: PropTypes.string
+  companyId: PropTypes.string,
+  notify: PropTypes.func
 };
 
 Project.defaultProps = {
@@ -137,7 +141,8 @@ Project.defaultProps = {
   deleteProject: noop,
   editProject: noop,
   editProjectAction: noop,
-  companyId: ''
+  companyId: '',
+  notify: noop
 };
 
 export default Project;

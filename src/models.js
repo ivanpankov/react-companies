@@ -141,3 +141,21 @@ export const companiesTreeDefaultProps = {
   data: [],
   error: null
 };
+
+// --------------------
+export const NotificationPropTypes = {
+  notificationType: PropTypes.string,
+  text: PropTypes.string
+};
+export const NotificationDefaultProps = {
+  notificationType: '',
+  text: '',
+  id: ''
+};
+
+export const NotificationsPropTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape(NotificationPropTypes))
+};
+export const NotificationsDefaultProps = {
+  data: []
+};

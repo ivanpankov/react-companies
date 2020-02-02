@@ -1,4 +1,4 @@
-import { notification } from './notification';
+import { notify } from './notification';
 import { companiesTreeDefaultProps } from '../models';
 import { getCompaniesTree } from '../api/companies';
 
@@ -32,6 +32,6 @@ export const fetchCompaniesTree = () => dispatch => {
     })
     .catch(error => {
       dispatch(receiveCompaniesTreeFail(error));
-      dispatch(notification.error(error.toString()));
+      dispatch(notify('error', error.message));
     });
 };

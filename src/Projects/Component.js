@@ -11,7 +11,8 @@ const Projects = ({
   employees,
   companyId,
   addProject,
-  addProjectAction
+  addProjectAction,
+  notify
 }) => {
   const [showDialog, setShowDialog] = useState(false);
 
@@ -28,9 +29,10 @@ const Projects = ({
       .then(response => {
         addProjectAction(response);
         handleCloseDialog();
+        notify('info', 'New project has been created.');
       })
       .catch(error => {
-        console.log(error);
+        notify('error', error.message);
       });
   };
 
@@ -78,7 +80,8 @@ Projects.propTypes = {
   employees: PropTypes.arrayOf(PropTypes.shape(EmployeePropTypes)),
   companyId: PropTypes.string,
   addProject: PropTypes.func,
-  addProjectAction: PropTypes.func
+  addProjectAction: PropTypes.func,
+  notify: PropTypes.func
 };
 
 Projects.defaultProps = {
@@ -86,7 +89,8 @@ Projects.defaultProps = {
   employees: [],
   companyId: '',
   addProject: noop,
-  addProjectAction: noop
+  addProjectAction: noop,
+  notify: noop
 };
 
 export default Projects;

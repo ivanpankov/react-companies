@@ -1,5 +1,5 @@
 import { notification } from './notification';
-import { companiesTreeDefaultProps } from '../reducers/companiesTree';
+import { companiesTreeDefaultProps } from '../models';
 import { getCompaniesTree } from '../api/companies';
 
 export const REQUEST_COMPANIES_TREE = 'REQUEST_COMPANIES_TREE';

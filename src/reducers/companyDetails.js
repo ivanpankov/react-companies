@@ -12,7 +12,7 @@ export function employee(state = [], action = {}) {
   }
 }
 
-function employees(state = [], action = {}) {
+export function employees(state = [], action = {}) {
   const { type } = action;
 
   switch (type) {

@@ -11,3 +11,17 @@ export const arrayToObj = arr => {
 };
 
 export const DATE_FORMAT = 'dd/MM/yyyy';
+
+export const getProjectsEmployeesParticipateIn = (employees, projects) => {
+  const projectsHash = {};
+
+  employees.forEach(employee => {
+    projects.forEach(project => {
+      if (project.employeesId.includes(employee.id)) {
+        projectsHash[project.id] = project;
+      }
+    });
+  });
+
+  return Object.values(projectsHash);
+};

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import {
-  menuAreaPropTypes,
-  menuAreaDefaultProps
-} from '../../reducers/companiesTree';
+import { menuAreaPropTypes, menuAreaDefaultProps } from '../../models';
+import Employee from '../Employee';
 
 const JobArea = ({ name, employees, companyId, companyName }) => {
   const [areaOpen, setAreaOpen] = useState(false);
@@ -43,10 +42,14 @@ const JobArea = ({ name, employees, companyId, companyName }) => {
       <ul className="mb-1 pl-3">
         {areaOpen
           ? employees.map(employee => (
-              <li
-                key={employee.id}
-                className=" pl-3 menu-item-name d-block"
-              >{`${employee.firstName} ${employee.lastName}`}</li>
+              <li key={employee.id} className=" pl-3 menu-item-name d-block">
+                <Employee
+                  firstName={employee.firstName}
+                  lastName={employee.lastName}
+                  id={employee.id}
+                  companyId={companyId}
+                />
+              </li>
             ))
           : null}
       </ul>
@@ -54,7 +57,15 @@ const JobArea = ({ name, employees, companyId, companyName }) => {
   );
 };
 
-JobArea.propTypes = menuAreaPropTypes;
-JobArea.defaultProps = menuAreaDefaultProps;
+JobArea.propTypes = {
+  ...menuAreaPropTypes,
+  companyId: PropTypes.string,
+  companyName: PropTypes.string
+};
+JobArea.defaultProps = {
+  ...menuAreaDefaultProps,
+  companyId: '',
+  companyName: ''
+};
 
 export default JobArea;

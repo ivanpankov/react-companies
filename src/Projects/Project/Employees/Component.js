@@ -62,7 +62,7 @@ const Employees = ({
           </thead>
           <tbody>
             {employees.map((employee, index) => {
-              return (
+              return employee ? (
                 <Employee
                   key={employee.id}
                   {...employee}
@@ -70,7 +70,7 @@ const Employees = ({
                   projectId={projectId}
                   index={index}
                 />
-              );
+              ) : null;
             })}
           </tbody>
         </table>
@@ -86,7 +86,7 @@ const Employees = ({
 };
 
 Employees.propTypes = {
-  employees: PropTypes.arrayOf(PropTypes.shape({ ...EmployeePropTypes })),
+  employees: PropTypes.arrayOf(PropTypes.shape(EmployeePropTypes)),
   projectId: PropTypes.string,
   projectIndex: PropTypes.number,
   companyId: PropTypes.string,
@@ -94,7 +94,7 @@ Employees.propTypes = {
   fetchCompaniesTree: PropTypes.func
 };
 
-EmployeePropTypes.defaultProps = {
+Employees.defaultProps = {
   employees: [],
   projectId: '',
   projectIndex: 0,

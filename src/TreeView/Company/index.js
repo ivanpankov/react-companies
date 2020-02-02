@@ -4,7 +4,7 @@ import JobArea from '../JobArea';
 import {
   companiesTreePropTypes,
   companiesTreeDefaultProps
-} from '../../reducers/companiesTree';
+} from '../../models';
 
 const Company = ({ name, jobAreas, id }) => {
   const [companyOpen, setCompanyOpen] = useState(false);

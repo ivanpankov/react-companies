@@ -93,3 +93,51 @@ export const CompanyDetailsDefaultProps = {
 };
 
 // --------------------------------------------------
+
+export const menuEmplyeePropTypes = {
+  id: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string
+};
+
+export const menuEmplyeeDefaultProps = {
+  id: '',
+  firstName: '',
+  lastName: ''
+};
+
+export const menuAreaPropTypes = {
+  name: PropTypes.string,
+  employees: PropTypes.arrayOf(PropTypes.shape(menuEmplyeePropTypes)),
+  companyId: PropTypes.string
+};
+
+export const menuAreaDefaultProps = {
+  name: '',
+  employees: [],
+  companyid: ''
+};
+
+export const menuCompanyPropTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  jobAreas: PropTypes.arrayOf(PropTypes.shape(menuAreaPropTypes))
+};
+
+export const menuCompanyDefaultProps = {
+  id: '',
+  name: '',
+  jobAreas: []
+};
+
+export const companiesTreePropTypes = {
+  loading: PropTypes.bool,
+  data: PropTypes.arrayOf(PropTypes.shape(menuCompanyPropTypes)),
+  error: PropTypes.object
+};
+
+export const companiesTreeDefaultProps = {
+  loading: false,
+  data: [],
+  error: null
+};

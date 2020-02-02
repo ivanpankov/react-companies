@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  companiesTreeDefaultProps,
-  companiesTreePropTypes
-} from '../reducers/companiesTree';
+import { companiesTreeDefaultProps, companiesTreePropTypes } from '../models';
 import Company from './Company';
 import { noop } from '../utils';
 import './styles.scss';

@@ -8,7 +8,10 @@ import { noop } from '../utils';
 import './styles.scss';
 
 const CompanyDetails = ({ fetchCompanyDetails, data, loading, companyId }) => {
-  const { company, address, projects, employees } = data;
+  const company = data.company || {};
+  const address = data.address || {};
+  const projects = data.projects || [];
+  const employees = data.employees || [];
   const { city, country, street, state } = address;
 
   useEffect(() => {

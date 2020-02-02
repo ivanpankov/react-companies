@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CompanyDetails from '../CompanyDetails';
 import JobAreaDetails from '../JobAreaDetails';
+import EmployeeDetails from '../EmployeeDetails';
 import './styles.scss';
 
 const Details = () => {
@@ -11,6 +12,7 @@ const Details = () => {
       <Switch>
         <Route path="/company-details/:companyId" component={CompanyDetails} />
         <Route path="/jobArea-details/:name" component={JobAreaDetails} />
+        <Route path="/employee-details/:id" component={EmployeeDetails} />
       </Switch>
     </div>
   );

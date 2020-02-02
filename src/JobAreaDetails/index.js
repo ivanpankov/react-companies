@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import JobAreaDetails from './Component';
 import { fetchCompanyDetails } from '../actions/companyDetails';
+import { getProjectsEmployeesParticipateIn } from '../utils';
 
 const mapStateToProps = ({ companyDetails }, ownProps) => {
   const { match, location } = ownProps;
@@ -10,33 +11,25 @@ const mapStateToProps = ({ companyDetails }, ownProps) => {
   const companyId = urlVars.get('companyId');
   const companyName = urlVars.get('companyName');
 
-  const { data } = companyDetails;
+  const { data, loading } = companyDetails;
   const { employees, projects } = data;
   const employeesInArea = employees.filter(
     employee => employee.jobArea === name
   );
 
-  const projectsEmployeesParticipateIn = {};
-
-  employeesInArea.forEach(employee => {
-    projects.forEach(project => {
-      if (project.employeesId.includes(employee.id)) {
-        projectsEmployeesParticipateIn[project.name] = employee.firstName;
-      }
-    });
-  });
-
-  const countOfprojectsEmployeesParticipateIn = Object.keys(
-    projectsEmployeesParticipateIn
-  ).length;
+  const projectsEmployeesParticipateIn = getProjectsEmployeesParticipateIn(
+    employeesInArea,
+    projects
+  );
 
   return {
-    companyDetails,
     name,
     companyId,
     companyName,
     employeesCountInArea: employeesInArea.length,
-    countOfprojectsEmployeesParticipateIn
+    countOfprojectsEmployeesParticipateIn:
+      projectsEmployeesParticipateIn.length,
+    loading
   };
 };
 

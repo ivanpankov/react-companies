@@ -5,7 +5,7 @@ import { getCompaniesTree } from '../api/companies';
 export const REQUEST_COMPANIES_TREE = 'REQUEST_COMPANIES_TREE';
 export const requestCompaniesTree = () => ({
   type: REQUEST_COMPANIES_TREE,
-  ...companiesTreeDefaultProps,
+  error: null,
   loading: true
 });
 

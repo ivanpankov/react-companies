@@ -1,6 +1,6 @@
 import { CompanyDetailsDefaultProps, ProjectDefaultProps } from '../models';
 
-function employee(state = [], action = {}) {
+export function employee(state = [], action = {}) {
   const { type, data } = action;
 
   switch (type) {
@@ -25,12 +25,15 @@ function employees(state = [], action = {}) {
         ...state.slice(employeeIndex + 1)
       ];
 
+    case 'ADD_EMPLOYEE':
+      return [...state, action.data];
+
     default:
       return state;
   }
 }
 
-function employeesId(state = [], action = {}) {
+export function employeesId(state = [], action = {}) {
   const { type } = action;
 
   switch (type) {
@@ -40,12 +43,15 @@ function employeesId(state = [], action = {}) {
         ...state.slice(action.employeeIndex + 1)
       ];
 
+    case 'ADD_EMPLOYEE':
+      return [action.data.id, ...state];
+
     default:
       return state;
   }
 }
 
-function project(state = ProjectDefaultProps, action = {}) {
+export function project(state = ProjectDefaultProps, action = {}) {
   const { type } = action;
 
   switch (type) {
@@ -53,6 +59,7 @@ function project(state = ProjectDefaultProps, action = {}) {
       return { ...state, ...action.data };
 
     case 'DELETE_EMPLOYEE':
+    case 'ADD_EMPLOYEE':
       return { ...state, employeesId: employeesId(state.employeesId, action) };
 
     default:
@@ -60,22 +67,23 @@ function project(state = ProjectDefaultProps, action = {}) {
   }
 }
 
-function projects(state = [], action = {}) {
+export function projects(state = [], action = {}) {
   const { type } = action;
 
   switch (type) {
     case 'DELETE_PROJECT':
       return [
-        ...state.slice(0, action.index),
-        ...state.slice(action.index + 1)
+        ...state.slice(0, action.projectIndex),
+        ...state.slice(action.projectIndex + 1)
       ];
 
     case 'EDIT_PROJECT':
     case 'DELETE_EMPLOYEE':
+    case 'ADD_EMPLOYEE':
       return [
-        ...state.slice(0, action.index),
-        project(state[action.index], action),
-        ...state.slice(action.index + 1)
+        ...state.slice(0, action.projectIndex),
+        project(state[action.projectIndex], action),
+        ...state.slice(action.projectIndex + 1)
       ];
 
     case 'ADD_PROJECT':
@@ -86,7 +94,7 @@ function projects(state = [], action = {}) {
   }
 }
 
-function data(state = CompanyDetailsDefaultProps.data, action = {}) {
+export function data(state = CompanyDetailsDefaultProps.data, action = {}) {
   const { type } = action;
 
   switch (type) {
@@ -101,6 +109,12 @@ function data(state = CompanyDetailsDefaultProps.data, action = {}) {
 
     case 'EDIT_EMPLOYEE':
       return { ...state, employees: employees(state.employees, action) };
+    case 'ADD_EMPLOYEE':
+      return {
+        ...state,
+        employees: employees(state.employees, action),
+        projects: projects(state.projects, action)
+      };
 
     default:
       return state;
@@ -121,6 +135,7 @@ export default function(state = CompanyDetailsDefaultProps, action = {}) {
     case 'ADD_PROJECT':
     case 'DELETE_EMPLOYEE':
     case 'EDIT_EMPLOYEE':
+    case 'ADD_EMPLOYEE':
       return { ...state, data: data(state.data, action) };
 
     default:

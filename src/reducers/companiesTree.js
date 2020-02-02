@@ -19,7 +19,7 @@ export const menuAreaPropTypes = {
 
 export const menuAreaDefaultProps = {
   name: '',
-  employees: ''
+  employees: []
 };
 
 export const menuCompanyPropTypes = {
@@ -53,9 +53,10 @@ export default function(state = companiesTreeDefaultProps, action = {}) {
     case 'REQUEST_COMPANIES_TREE':
     case 'RECEIVE_COMPANIES_TREE_SUCCESS':
     case 'RECEIVE_COMPANIES_TREE_FAIL':
-      return rest;
+      return { ...state, ...rest };
 
     default:
       return state;
   }
 }
+

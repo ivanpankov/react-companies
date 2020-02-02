@@ -65,8 +65,14 @@ app.delete('/api/project/:id/:employeeId', function(req, res) {
   res.json({ message: 'Employee has been deleted.' });
 });
 
+// edit employee
 app.put('/api/employee/:id', function(req, res) {
   res.json(data.editEmployee(req.params.id, req.body));
+});
+
+// add new Employee to project
+app.post('/api/employee/:projectId', function(req, res) {
+  res.json(data.addEmployeeToProject(req.params.projectId, req.body));
 });
 
 // handle not found

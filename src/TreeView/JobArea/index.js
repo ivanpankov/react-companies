@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
+import { Link } from 'react-router-dom';
 import {
   menuAreaPropTypes,
   menuAreaDefaultProps
@@ -22,14 +23,16 @@ const JobArea = ({ name, employees }) => {
         }`}
         onClick={handleArrowClick}
       ></div>
-      <div className="menu-item-name">{name}</div>
+      <div className="menu-item-name">
+        <Link to={`/jobArea-details/${name}`}>{name}</Link>
+      </div>
       <ul className="mb-1 pl-3">
         {areaOpen
           ? employees.map(employee => (
-              <div
+              <li
                 key={employee.id}
-                className=" pl-3 menu-item-name"
-              >{`${employee.firstName} ${employee.lastName}`}</div>
+                className=" pl-3 menu-item-name d-block"
+              >{`${employee.firstName} ${employee.lastName}`}</li>
             ))
           : null}
       </ul>
@@ -40,4 +43,4 @@ const JobArea = ({ name, employees }) => {
 JobArea.propTypes = menuAreaPropTypes;
 JobArea.defaultProps = menuAreaDefaultProps;
 
-export default JobArea;
+export default memo(JobArea);

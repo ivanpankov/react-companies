@@ -20,7 +20,8 @@ const Employee = ({
   deleteEmployeeAction,
   editEmployeeAction,
   editEmployee,
-  index
+  index,
+  fetchCompaniesTree
 }) => {
   const [showDialog, setShowDialog] = useState({
     delete: false,
@@ -60,6 +61,7 @@ const Employee = ({
       .then(data => {
         editEmployeeAction(id, data);
         handleCloseDialog();
+        fetchCompaniesTree();
       })
       .catch(err => {
         console.log(err);
@@ -114,7 +116,8 @@ Employee.propTypes = {
   deleteEmployee: PropTypes.func,
   deleteEmployeeAction: PropTypes.func,
   editEmployeeAction: PropTypes.func,
-  index: PropTypes.number
+  index: PropTypes.number,
+  fetchCompaniesTree: PropTypes.func
 };
 Employee.defaultProps = {
   ...EmployeeDefaultProps,
@@ -123,7 +126,8 @@ Employee.defaultProps = {
   deleteEmployee: noop,
   deleteEmployeeAction: noop,
   editEmployeeAction: noop,
-  index: 0
+  index: 0,
+  fetchCompaniesTree: noop
 };
 
 export default Employee;

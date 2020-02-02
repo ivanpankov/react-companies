@@ -182,10 +182,10 @@ EditEmployeeDialog.propTypes = {
   onClose: PropTypes.func,
   onSave: PropTypes.func,
   show: PropTypes.bool,
-  lasstName: PropTypes.string,
+  lastName: PropTypes.string,
   header: PropTypes.string,
   jobTitle: PropTypes.string,
-  jobAria: PropTypes.string,
+  jobArea: PropTypes.string,
   jobType: PropTypes.string,
   dateOfBirth: PropTypes.string
 };
@@ -195,12 +195,12 @@ EditEmployeeDialog.defaultProps = {
   onClose: noop,
   onSave: noop,
   show: false,
-  lasstName: '',
+  lastName: '',
   header: '',
   jobTitle: '',
-  jobAria: '',
+  jobArea: '',
   jobType: '',
-  dateOfBirth: ''
+  dateOfBirth: formatISO(new Date())
 };
 
 export default EditEmployeeDialog;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import JobArea from '../JobArea';
 import {
@@ -18,16 +18,17 @@ const Company = ({ name, jobAreas, id }) => {
 
   return (
     <li>
-      <div
-        className={`arrow-right${isAreaEmpty ? ' empty' : ''}${
-          companyOpen ? ' open' : ''
-        }`}
-        onClick={handleArrowClick}
-      ></div>
+      <div onClick={handleArrowClick}>
+        <div
+          className={`arrow-right${isAreaEmpty ? ' empty' : ''}${
+            companyOpen ? ' open' : ''
+          }`}
+        ></div>
 
-      <Link to={`/company-details/${id}`}>
-        <div className="menu-item-name">{name}</div>
-      </Link>
+        <Link to={`/company-details/${id}`}>
+          <div className="menu-item-name">{name}</div>
+        </Link>
+      </div>
       <ul className="mb-1 pl-3">
         {companyOpen
           ? jobAreas.map(area => (
@@ -46,4 +47,4 @@ const Company = ({ name, jobAreas, id }) => {
 Company.propTypes = companiesTreePropTypes;
 Company.defaultProps = companiesTreeDefaultProps;
 
-export default Company;
+export default memo(Company);

@@ -1,17 +1,20 @@
 import { connect } from 'react-redux';
 import Employees from './Component';
+import { addEmployee } from '../../../api/employees';
+import { addEmployee as addEmployeeAction } from '../../../actions/companyDetails';
+import { fetchCompaniesTree } from '../../../actions/companiesTree';
 
 const mapStateToProps = () => {
-  return {};
+  return { addEmployee };
 };
 
 const mapDispatchToProps = dispatch => ({
-  //   deleteProjectAction: index => {
-  //     dispatch(deleteProjectAction(index));
-  //   },
-  //   editProjectAction: (index, data) => {
-  //     dispatch(editProjectAction(index, data));
-  //   }
+  addEmployeeAction: (projectIndex, data) => {
+    dispatch(addEmployeeAction(projectIndex, data));
+  },
+  fetchCompaniesTree: () => {
+    dispatch(fetchCompaniesTree());
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Employees);

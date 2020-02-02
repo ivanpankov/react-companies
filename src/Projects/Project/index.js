@@ -11,11 +11,11 @@ const mapStateToProps = () => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  deleteProjectAction: index => {
-    dispatch(deleteProjectAction(index));
+  deleteProjectAction: projectIndex => {
+    dispatch(deleteProjectAction(projectIndex));
   },
-  editProjectAction: (index, data) => {
-    dispatch(editProjectAction(index, data));
+  editProjectAction: (projectIndex, data) => {
+    dispatch(editProjectAction(projectIndex, data));
   }
 });
 

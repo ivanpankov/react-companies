@@ -44,15 +44,15 @@ export const updateCompanyProject = data => ({
 });
 
 export const DELETE_PROJECT = 'DELETE_PROJECT';
-export const deleteProject = index => ({
+export const deleteProject = projectIndex => ({
   type: DELETE_PROJECT,
-  index
+  projectIndex
 });
 
 export const EDIT_PROJECT = 'EDIT_PROJECT';
-export const editProject = (index, data) => ({
+export const editProject = (projectIndex, data) => ({
   type: EDIT_PROJECT,
-  index,
+  projectIndex,
   data
 });
 
@@ -65,7 +65,7 @@ export const addProject = data => ({
 export const DELETE_EMPLOYEE = 'DELETE_EMPLOYEE';
 export const deleteEmployee = (projectIndex, employeeIndex) => ({
   type: DELETE_EMPLOYEE,
-  index: projectIndex,
+  projectIndex,
   employeeIndex
 });
 
@@ -77,8 +77,8 @@ export const editEmployee = (id, data) => ({
 });
 
 export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
-export const addEmployee = data => ({
+export const addEmployee = (projectIndex, data) => ({
   type: ADD_EMPLOYEE,
-  data
+  data,
+  projectIndex
 });
-

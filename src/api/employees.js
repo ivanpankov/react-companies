@@ -6,3 +6,10 @@ export const editEmployee = (id, data) => {
     body: data
   });
 };
+
+export const addEmployee = (projectId, data) => {
+  return request(`/api/employee/${projectId}`, {
+    method: 'POST',
+    body: data
+  });
+};

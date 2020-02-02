@@ -45,6 +45,8 @@ function addEmployee(employee) {
   // TODO: check if employee exists
   employee.id = uuidv1();
   employees.push(employee);
+
+  return employees;
 }
 
 function editEmployee(id, data) {
@@ -69,11 +71,19 @@ function editProject(id, data) {
   return Object.assign(projects[projectIndex], data);
 }
 
-function addEmployeeToProject(project, employeeId) {
+function addEmployeeToProject(projectId, employee) {
+  addEmployee(employee);
+
+  const projectIndex = getIndexById(projects, projectId);
+  const project = projects[projectIndex];
+
   if (!Array.isArray(project.employeesId)) {
     project.employeesId = [];
   }
-  project.employeesId.push(employeeId);
+
+  project.employeesId.push(employee.id);
+
+  return employee;
 }
 
 function separateEmployeesByJobArea(employees = []) {
@@ -164,5 +174,6 @@ module.exports = {
   editProject,
   addProject,
   removeEmployeeFromProject,
-  editEmployee
+  editEmployee,
+  addEmployeeToProject
 };

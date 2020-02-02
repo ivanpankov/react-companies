@@ -2,6 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import CompanyDetails from '../CompanyDetails';
+import JobAreaDetails from '../JobAreaDetails';
 import './styles.scss';
 
 const Details = () => {
@@ -9,6 +10,7 @@ const Details = () => {
     <div className="details">
       <Switch>
         <Route path="/company-details/:companyId" component={CompanyDetails} />
+        <Route path="/jobArea-details/:name" component={JobAreaDetails} />
       </Switch>
     </div>
   );

@@ -14,12 +14,14 @@ export const menuEmplyeeDefaultProps = {
 
 export const menuAreaPropTypes = {
   name: PropTypes.string,
-  employees: PropTypes.arrayOf(PropTypes.shape(menuEmplyeePropTypes))
+  employees: PropTypes.arrayOf(PropTypes.shape(menuEmplyeePropTypes)),
+  companyId: PropTypes.string
 };
 
 export const menuAreaDefaultProps = {
   name: '',
-  employees: []
+  employees: [],
+  companyid: ''
 };
 
 export const menuCompanyPropTypes = {
@@ -59,4 +61,3 @@ export default function(state = companiesTreeDefaultProps, action = {}) {
       return state;
   }
 }
-

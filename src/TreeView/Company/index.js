@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import JobArea from '../JobArea';
 import {
@@ -16,19 +16,24 @@ const Company = ({ name, jobAreas, id }) => {
     }
   };
 
+  const handleLinkClick = () => {
+    if (!isAreaEmpty && !companyOpen) {
+      setCompanyOpen(true);
+    }
+  };
+
   return (
     <li>
-      <div onClick={handleArrowClick}>
-        <div
-          className={`arrow-right${isAreaEmpty ? ' empty' : ''}${
-            companyOpen ? ' open' : ''
-          }`}
-        ></div>
+      <div
+        className={`arrow-right${isAreaEmpty ? ' empty' : ''}${
+          companyOpen ? ' open' : ''
+        }`}
+        onClick={handleArrowClick}
+      ></div>
 
-        <Link to={`/company-details/${id}`}>
-          <div className="menu-item-name">{name}</div>
-        </Link>
-      </div>
+      <Link to={`/company-details/${id}`} onClick={handleLinkClick}>
+        <div className="menu-item-name">{name}</div>
+      </Link>
       <ul className="mb-1 pl-3">
         {companyOpen
           ? jobAreas.map(area => (
@@ -36,6 +41,8 @@ const Company = ({ name, jobAreas, id }) => {
                 name={area.name}
                 employees={area.employees}
                 key={area.name}
+                companyId={id}
+                companyName={name}
               />
             ))
           : null}
@@ -47,4 +54,4 @@ const Company = ({ name, jobAreas, id }) => {
 Company.propTypes = companiesTreePropTypes;
 Company.defaultProps = companiesTreeDefaultProps;
 
-export default memo(Company);
+export default Company;

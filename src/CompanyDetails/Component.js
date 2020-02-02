@@ -7,8 +7,7 @@ import Spinner from '../Spinner';
 import { noop } from '../utils';
 import './styles.scss';
 
-const CompanyDetails = ({ fetchCompanyDetails, data, loading, match }) => {
-  const { companyId } = match.params;
+const CompanyDetails = ({ fetchCompanyDetails, data, loading, companyId }) => {
   const { company, address, projects, employees } = data;
   const { city, country, street, state } = address;
 
@@ -18,7 +17,7 @@ const CompanyDetails = ({ fetchCompanyDetails, data, loading, match }) => {
 
   return (
     <div className="company-details">
-      <div className=" details-head">
+      <div className="details-head">
         <h6 className="p-3">{company.name}</h6>
       </div>
       <div className="company-details-content">
@@ -46,11 +45,13 @@ const CompanyDetails = ({ fetchCompanyDetails, data, loading, match }) => {
 
 CompanyDetails.propTypes = {
   ...CompanyDetailsPropTypes,
-  fetchCompanyDetails: PropTypes.func
+  fetchCompanyDetails: PropTypes.func,
+  companyId: PropTypes.string
 };
 CompanyDetails.defaultProps = {
   ...CompanyDetailsDefaultProps,
-  fetchCompanyDetails: noop
+  fetchCompanyDetails: noop,
+  companyId: ''
 };
 
 export default CompanyDetails;

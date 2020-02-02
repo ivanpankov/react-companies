@@ -1,17 +1,23 @@
-import React, { useState, memo } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   menuAreaPropTypes,
   menuAreaDefaultProps
 } from '../../reducers/companiesTree';
 
-const JobArea = ({ name, employees }) => {
+const JobArea = ({ name, employees, companyId, companyName }) => {
   const [areaOpen, setAreaOpen] = useState(false);
   const isEmployeesEmpty = employees.length === 0;
 
   const handleArrowClick = () => {
     if (!isEmployeesEmpty) {
       setAreaOpen(!areaOpen);
+    }
+  };
+
+  const handleLinkClick = () => {
+    if (!isEmployeesEmpty && !areaOpen) {
+      setAreaOpen(true);
     }
   };
 
@@ -24,7 +30,15 @@ const JobArea = ({ name, employees }) => {
         onClick={handleArrowClick}
       ></div>
       <div className="menu-item-name">
-        <Link to={`/jobArea-details/${name}`}>{name}</Link>
+        <Link
+          to={{
+            pathname: `/jobArea-details/${name}`,
+            search: `?companyId=${companyId}&companyName=${companyName}`
+          }}
+          onClick={handleLinkClick}
+        >
+          {name}
+        </Link>
       </div>
       <ul className="mb-1 pl-3">
         {areaOpen
@@ -43,4 +57,4 @@ const JobArea = ({ name, employees }) => {
 JobArea.propTypes = menuAreaPropTypes;
 JobArea.defaultProps = menuAreaDefaultProps;
 
-export default memo(JobArea);
+export default JobArea;
